@@ -19,11 +19,29 @@
                         <p class="imdb-rating"><strong>IMDb Rating:</strong> <%= anime.imdb %></p>
                         <p class="my-rating"><strong>My Rating:</strong> <%= anime.myscore %></p>
                     </div>
+                    <button onclick="deleteAnime('<%= anime.name %>')">Delete</button>
                 </div>
             </article>
             
         <% }); %>
     </div>
+
+    <script>
+        async function deleteAnime(name) {
+            try {
+                const response = await fetch(`/delete/${encodeURIComponent(name)}`, {
+                    method: 'DELETE'
+                });
+                if (response.ok) {
+                    location.reload();
+                } else {
+                    console.error('Failed to delete anime');
+                }
+            } catch (err) {
+                console.error('Error:', err);
+            }
+        }
+    </script>
 </body>
 
 

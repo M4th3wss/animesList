@@ -21,7 +21,19 @@ async function addAnime(name, description, imgurl, imdb, myscore) {
     }
 }
 
+async function removeAnime(name) {
+    try {
+        const query = 'DELETE FROM animes WHERE name = $1';
+        const values = [name];
+        await pool.query(query, values);
+    }
+    catch(err) {
+        console.error('Error executing query', err.stack);
+    }
+}
+
 module.exports = {
     getAllAnimes,
-    addAnime
+    addAnime,
+    removeAnime
 }

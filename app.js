@@ -17,8 +17,11 @@ app.use(express.urlencoded({ extended: true }));
 
 //Middleware
 app.get('/', mainController.getAllAnimes);
+
 app.get('/add', mainController.createAnimeGet);
 app.post('/add', mainController.createAnimePost);
+
+app.delete('/delete/:name', mainController.deleteAnime);
 
 
 app.listen(3000, () => {

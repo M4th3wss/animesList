@@ -34,8 +34,21 @@ async function createAnimePost(req, res) {
     }
 }
 
+async function deleteAnime(req, res) {
+    const { name } = req.params;
+    try {
+        await db.removeAnime(name);
+        res.status(200).json({ message: 'Anime deleted successfully' });
+    }
+    catch (err) {
+        console.error('Error deleting anime', err.stack);
+        res.status(500).json({ error: 'Internal server error' });
+    }
+}
+
 module.exports = {
     getAllAnimes,
     createAnimeGet,
-    createAnimePost
+    createAnimePost,
+    deleteAnime
 }
