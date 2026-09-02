@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="../style.css">
+</head>
+<body>
+
+    <h1>Watched animes</h1>
+    <a href="/add" class="add-anime-button">Add Anime</a>
+    <div class="grid">
+        <% animes.forEach(anime => { %>
+            <article class="anime-card">
+                <div class="card-content">
+                    <img class="card-img" src="<%= anime.imgurl %>" alt="<%= anime.name %>">
+                    <h2 class="card-name"><%= anime.name %></h2>
+                    <p class="card-desc"><strong>Description:</strong> <%= anime.describtion %></p>
+                    <div class="ratings">
+                        <p class="imdb-rating"><strong>IMDb Rating:</strong> <%= anime.imdb %></p>
+                        <p class="my-rating"><strong>My Rating:</strong> <%= anime.myscore %></p>
+                    </div>
+                </div>
+            </article>
+            
+        <% }); %>
+    </div>
+</body>
+
+
+
