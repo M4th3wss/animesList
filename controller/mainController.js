@@ -11,7 +11,7 @@ async function getAllAnimes(req, res) {
             imdb: anime.imdb_rating,
             myscore: anime.my_rating
         }))
-        res.render('main', { animes: animeList });
+        res.render('main', { animes: animeList, user: req.user });
     } catch (err) {
         console.error('Error fetching animes', err.stack);
         res.status(500).json({ error: 'Internal server error' });
@@ -34,6 +34,19 @@ async function createAnimePost(req, res) {
     }
 }
 
+async function signUpGet(req, res) {
+    res.render('sign-up-form');
+}
+
+async function signUpPost(req, res){
+    try {
+        await db.addUser(req.body.username, req.body.password);
+        res.redirect("/");
+    } catch(err) {
+        res.status(500 ).json({ error: 'Internal server error' });
+    }
+}
+
 async function deleteAnime(req, res) {
     const { name } = req.params;
     try {
@@ -50,5 +63,7 @@ module.exports = {
     getAllAnimes,
     createAnimeGet,
     createAnimePost,
-    deleteAnime
+    deleteAnime,
+    signUpGet,
+    signUpPost
 }

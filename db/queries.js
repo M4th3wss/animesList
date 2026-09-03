@@ -32,8 +32,20 @@ async function removeAnime(name) {
     }
 }
 
+async function addUser(username, password) {
+    try {
+        const query = 'INSERT INTO users (username, password) VALUES ($1, $2)';
+        const values = [username, password];
+        await pool.query(query, values);
+    }
+    catch(err) {
+        console.error('Error executing query', err.stack);
+    }
+}
+
 module.exports = {
     getAllAnimes,
     addAnime,
-    removeAnime
+    removeAnime,
+    addUser
 }
