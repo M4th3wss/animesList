@@ -16,7 +16,11 @@ app.use(express.static(path.join(__dirname, "public")));
 
 app.use(express.urlencoded({ extended: true }));
 
-app.use(session({ secret: "dogs", resave: false, saveUninitialized: false }));
+app.use(session({
+    secret: "dogs",
+    saveUninitialized: false,
+    resave: false
+}));
 app.use(passport.session());
 
 //Middleware
@@ -27,8 +31,21 @@ app.post('/add', mainController.createAnimePost);
 
 app.delete('/delete/:name', mainController.deleteAnime);
 
+
+//Sign up
 app.get("/sign-up", mainController.signUpGet);
 app.post("/sign-up", mainController.signUpPost);
+//Log in
+app.post(
+  "/log-in",
+  passport.authenticate("local", {
+    successRedirect: "/",
+    failureRedirect: "/",
+    failureMessage: true,
+  })
+);
+
+
 
 
 passport.use(
